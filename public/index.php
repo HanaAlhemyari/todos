@@ -1,9 +1,14 @@
 <?php
-require 'utils.php';
+const BASE_PATH = __DIR__.'/../';
+require BASE_PATH. '/Core/utils.php';
 
-require 'Database.php';
+spl_autoload_register(function ($class) {
+    $class = str_replace('\\', DIRECTORY_SEPARATOR, $class);
+    require_once base_path($class . '.php');
+}
+);
 
-require 'router.php';
+require base_path('Core/router.php');
 
 // الحصول على عنوان URL الحالي
 //$url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH); // استخدم parse_url لاستخراج المسار فقط

@@ -7,6 +7,7 @@
 //$message=$_POST['message'];
 
 //echo $email;
-require '../views/contact.template.html';
+
+ view('contact.template.html');
 ?>
 

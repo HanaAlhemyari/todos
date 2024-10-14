@@ -6,9 +6,7 @@ $links = [
     'Contact' => '/contact',
     'About' => '/about',
 ];
-function isUrl($url){
-    return $_SERVER['REQUEST_URI'] === $url;
-}
+
 
 ?>
 

@@ -1,8 +1,5 @@
 
-
 <?php
-
-require '../views/about.template.html';
-
+ view('about.template.html');
 
 ?>
