@@ -8,8 +8,8 @@ spl_autoload_register(function ($class) {
 }
 );
 
-require base_path('Core/router.php');
 
+require base_path('Core/router.php');
 // الحصول على عنوان URL الحالي
 //$url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH); // استخدم parse_url لاستخراج المسار فقط
 //$uri = parse_url($_SERVER['REQUEST_URI'])['path'];

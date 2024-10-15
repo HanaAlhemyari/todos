@@ -1,0 +1,9 @@
+RewriteEngine On
+RewriteBase /todos/
+
+# لا تعيد الكتابة إذا كان الملف أو المجلد موجودًا
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# إعادة توجيه كل الطلبات إلى index.php داخل مجلد public
+RewriteRule ^(.*)$ index.php [QSA,L]
