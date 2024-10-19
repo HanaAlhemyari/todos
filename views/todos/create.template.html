@@ -4,7 +4,8 @@
     <div class="container px-5 py-24 mx-auto">
         <div class="flex flex-col text-center w-full mb-12">
             <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Add New Article</h1>
-            <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Submit your article details below to publish a new post.</p>
+            <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Submit your article details below to publish a new
+                post.</p>
         </div>
         <form method="post" class="">
             <div class="lg:w-1/2 md:w-2/3 mx-auto">
@@ -16,7 +17,7 @@
                             <input type="text" id="title" name="title"
                                    class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-indigo-500 focus:bg-gray-900 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                                    placeholder="The gifts make happiness"
-                            value="<?= $_POST['title'] ?? '' ?>">
+                                   value="<?= $_POST['title'] ?? '' ?>">
                             <?php if (isset($errors['title'])) : ?>
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500"><?= $errors['title'] ?></p>
                             <?php endif; ?>
@@ -26,16 +27,25 @@
                     <div class="p-2 w-full">
                         <div class="relative">
                             <label for="category" class="leading-7 text-sm text-gray-400">Category</label>
-                            <input type="text" id="category" name="category"
-                                   class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-indigo-500 focus:bg-gray-900 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                                   placeholder="Eid gifts"
-                                   value="<?= $_POST['category'] ?? '' ?>">
+                            <select id="category_id" name="category_id"
+                                    class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-indigo-500 focus:bg-gray-900 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                <option value="" disabled selected>Select a category</option>
+                                <?php foreach ($categories as $category): ?>
+                                <option value="<?= $category['id'] ?>"
+                                <?= isset($_POST['category_id']) && $_POST['category_id'] == $category['id'] ? 'selected' : '' ?>
+                                >
+                                <?= htmlspecialchars($category['name']) ?>
+
+                                </option>
+                                <?php endforeach; ?>
+                            </select>
 
                             <?php if (isset($errors['category'])) : ?>
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500"><?= $errors['category'] ?></p>
                             <?php endif; ?>
                         </div>
                     </div>
+
                     <!-- وصف المقال -->
                     <div class="p-2 w-full">
                         <div class="relative">
@@ -63,7 +73,10 @@
                     </div>
                     <!-- زر الإرسال -->
                     <div class="p-2 w-full">
-                        <button type="submit" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit Article</button>
+                        <button type="submit"
+                                class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                            Save
+                        </button>
                     </div>
                 </div>
             </div>

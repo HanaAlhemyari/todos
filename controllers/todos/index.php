@@ -1,6 +1,4 @@
 <?php
-const BASE_PATH = __DIR__.'/../../';
-require BASE_PATH. '/Core/utils.php';
 use Core\Database;
 
 spl_autoload_register(function ($class) {

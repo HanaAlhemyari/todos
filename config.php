@@ -5,3 +5,4 @@ return [
     'port' => '3306',
     'charset' => 'utf8'
 ];
+

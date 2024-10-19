@@ -1,0 +1,21 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: root
+  password: 
+  socket: /path/to/mysql.sock
+
+development:
+  <<: *default
+  database: todos
+
+test:
+  <<: *default
+  database: todos_test
+
+production:
+  <<: *default
+  database: todos_production
+  username: your_username
+  password: your_password

@@ -1,9 +1,9 @@
-RewriteEngine On
-RewriteBase /todos/
+#RewriteCond %{REQUEST_URI}  !(\.png|\.jpg|\.webp|\.gif|\.jpeg|\.zip|\.css|\.svg|\.js|\.pdf)$
+#RewriteRule (.*) routes.php [QSA,L]
 
-# لا تعيد الكتابة إذا كان الملف أو المجلد موجودًا
+# قاعدة خاصة لـ test
+#RewriteRule ^test$ test.php [L]
+RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-
-# إعادة توجيه كل الطلبات إلى index.php داخل مجلد public
-RewriteRule ^(.*)$ index.php [QSA,L]
+RewriteRule ^(.*)$ index.php/$1 [L]

@@ -1,6 +1,5 @@
  <?php
- const BASE_PATH = __DIR__.'/../../';
- require BASE_PATH. '/Core/utils.php';
+
  use Core\Database;
 use Core\Validatore;
  spl_autoload_register(function ($class) {
@@ -15,12 +14,13 @@ use Core\Validatore;
  // استخدام الكلاس Database
  $db = new Database($config);
 $errors=[];
+$categories=[];
 $currentUser=1;
  // التحقق من إرسال النموذج
  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
      $todo = [
          'title' => $_POST['title'],
-         'category' => $_POST['category'],
+         'category_id' => $_POST['category_id'],  // تعديل هنا
          'description' => $_POST['description'],
          'image_url' => $_POST['image'],
          'user_id' => $currentUser,
@@ -33,14 +33,20 @@ $currentUser=1;
          $errors['description'] = 'description between 1 and 120 character is required';
      }
 
-     if (!Validatore::string($todo['category'], 1, 50)) {
-         $errors['category'] = 'category between 1 and 50 character is required';
-     }
+//     if (!Validatore::string($todo['category_id'], 1, 50)) {
+//         $errors['category'] = 'category between 1 and 50 character is required';
+//     }
 
      if (empty($errors)) {
-
          try {
-             $db->query('INSERT INTO todos (title, category, description, image_url, user_id) 
+             // جلب التصنيفات من قاعدة البيانات
+             $categories = $db->query('SELECT id, name FROM categories')->fetchAll();
+         } catch (PDOException $e) {
+             $errors['database'] = 'Error while select categories data: ' . $e->getMessage();
+
+         }
+         try {
+             $db->query('INSERT INTO todos (title, category_id, description, image_url, user_id) 
                     VALUES (:title, :category, :description, :image_url, :user_id)', $todo);
 
              // يمكنك إضافة إشعار أو توجيه المستخدم إلى صفحة أخرى بعد الإدخال الناجح
@@ -51,7 +57,9 @@ $currentUser=1;
          }
      }
  }
-     view('todos/create.template.html',[
-         'errors'=>$errors
+
+ view('todos/create.template.html',[
+         'errors'=>$errors,
+         ['categories' => $categories],
      ]);
 

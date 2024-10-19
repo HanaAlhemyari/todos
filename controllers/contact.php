@@ -8,6 +8,6 @@
 
 //echo $email;
 
- view('contact.template.html');
+require view('contact.template.html');
 ?>
 
