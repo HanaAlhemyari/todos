@@ -13,7 +13,7 @@ $config = require base_path( 'config.php');
 
 // استخدام الكلاس Database
 $db = new Database($config);
-
+$currentUser =1 ;
 $id =$_GET['id'];
 
 $todo = $db->query("SELECT 
@@ -41,6 +41,9 @@ $todo = $db->query("SELECT
                     LEFT JOIN views ON views.todo_id = todos.id
                     WHERE todos.id = :id
                     GROUP BY todos.id, users.id, categories.id", ['id' => $id])->fetch();
-
+if (!$todo){
+    die('Todo not found');
+}
+//authorize($todo['user_id']=== $currentUser);
 //dd($todo);
 view('todos/show.template.html', ['todo' => $todo]);

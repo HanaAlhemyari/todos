@@ -2,15 +2,20 @@
 <?php view('inclouds/nav.php'); ?>
 
 <section class="text-gray-600 body-font">
-    <div class="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
-        <img id="image-preview" src="<?= htmlspecialchars($todo['image_url'] ?? 'https://dummyimage.com/720x600'); ?>" alt="Todo Image" class="lg:w-2/6 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded">
+    <div class="container mx-auto flex px-5 py-24 items-center justify-center flex-row">
+        <!-- الصورة على اليمين -->
+        <div class="lg:w-2/6 md:w-3/6 w-5/6 order-last lg:order-first mb-10 lg:mb-0">
+            <img id="image-preview" src="<?= htmlspecialchars($todo['image_url'] ?? 'https://dummyimage.com/720x600'); ?>" alt="Todo Image" class="object-cover object-center rounded">
+        </div>
 
-        <input type="file" id="image-upload" accept="image/*" style="display: none;" onchange="previewImage(event)">
-        <div class="text-center lg:w-2/3 w-full">
-            <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900"><?= htmlspecialchars($todo['title']); ?></h1>
-            <p class="mb-8 leading-relaxed"><?= htmlspecialchars($todo['description']); ?></p>
-            <span class="inline-block py-1 px-2 rounded bg-indigo-50 text-indigo-500 text-xs font-medium tracking-widest"><?= htmlspecialchars($todo['category_name']); ?></span>
-            <div class="flex justify-center mt-8">
+        <!-- المحتويات على اليسار -->
+        <div class="lg:w-2/3 w-full lg:pl-10 flex flex-col">
+            <div class="text-center lg:text-left">
+                <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900"><?= htmlspecialchars($todo['title']); ?></h1>
+                <p class="mb-8 leading-relaxed"><?= htmlspecialchars($todo['description']); ?></p>
+                <span class="inline-block py-1 px-2 rounded bg-indigo-50 text-indigo-500 text-xs font-medium tracking-widest"><?= htmlspecialchars($todo['category_name']); ?></span>
+            </div>
+            <div class="flex justify-start mt-8">
                 <a href="user.php?id=<?= $todo['user_id']; ?>" class="inline-flex items-center">
                     <img alt="user" src="<?= htmlspecialchars($todo['avatar']); ?>" class="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center">
                     <span class="flex-grow flex flex-col pl-4">
@@ -19,7 +24,7 @@
                     </span>
                 </a>
             </div>
-            <div class="flex justify-center mt-4">
+            <div class="flex justify-start mt-4">
                 <span class="text-gray-400 inline-flex items-center leading-none text-sm pr-3 py-1">
                     <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -32,32 +37,17 @@
                     </svg><?= htmlspecialchars($todo['comments_count']); ?> Comments
                 </span>
             </div>
+
+            <!-- زر الحذف -->
+            <form method="post" class="mt-6">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="id" value="<?= htmlspecialchars($todo['id']); ?>">
+                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+                    Delete
+                </button>
+            </form>
         </div>
     </div>
 </section>
-
-<script>
-    function openImageOptions() {
-        const option = prompt("أدخل '1' لتحميل صورة من الجهاز أو '2' لإدخال رابط الصورة:");
-
-        if (option === '1') {
-            document.getElementById('image-upload').click();
-        } else if (option === '2') {
-            const imageUrl = prompt("أدخل رابط الصورة:");
-            if (imageUrl) {
-                document.getElementById('image-preview').src = imageUrl;
-            }
-        }
-    }
-
-    function previewImage(event) {
-        const reader = new FileReader();
-        reader.onload = function(){
-            const output = document.getElementById('image-preview');
-            output.src = reader.result;
-        };
-        reader.readAsDataURL(event.target.files[0]);
-    }
-</script>
 
 <?php view('inclouds/footer.php'); ?>

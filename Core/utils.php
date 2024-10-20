@@ -18,3 +18,11 @@ function view($path='', $vars=[])
     return require base_path("views/$path");
 
 }
+
+function authorize($condition)
+{
+    if(!$condition){
+        die('Unauthorized');
+    }
+
+}

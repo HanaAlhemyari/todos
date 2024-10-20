@@ -1,6 +1,6 @@
 
 <?php
 
-require view('about.template.html');
+ view('about.template.html');
 
 ?>

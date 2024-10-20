@@ -23,7 +23,12 @@ $router->get('/about', 'controllers/about.php');
 $router->get('/contact', 'controllers/contact.php');
 $router->get('/blog', 'controllers/todos/index.php');
 $router->get('/create', 'controllers/todos/create.php');
+
 $router->get('/show', 'controllers/todos/show.php');
+$router->delete('/blog', 'controllers/todos/delete.php');
+
+$router->post('/blog', 'controllers/todos/store.php');
+
 
 
 
